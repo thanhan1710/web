@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f0f0f0;
+        }
+
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .filter-section {
+            margin-bottom: 20px;
+        }
+
+        select,
+        input[type="text"] {
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .exercise {
+            background: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .exercise-title {
+            font-size: 18px;
+            margin: 0;
+        }
+
+        .exercise-details {
+            margin: 5px 0 10px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Dashboard</h1>
+    </header>
+    <div class="container">
+        <div class="filter-section">
+            <select id="language-filter" onchange="filterExercises()">
+                <option value="all">All Languages</option>
+                <option value="c">C</option>
+                <option value="python">Python</option>
+                <option value="java">Java</option>
+            </select>
+            <input type="text" id="search-bar" placeholder="Search exercises..." oninput="filterExercises()">
+        </div>
+        <div id="exercise-list">
+            <!-- Example Exercise -->
+            <div class="exercise" data-language="python">
+                <h2 class="exercise-title">Python Basics</h2>
+                <p class="exercise-details">Difficulty: Easy | Time Limit: 1 Hour</p>
+                <button onclick="startExercise('Python Basics')">Start</button>
+            </div>
+            <div class="exercise" data-language="c">
+                <h2 class="exercise-title">C Memory Management</h2>
+                <p class="exercise-details">Difficulty: Medium | Time Limit: 2 Hours</p>
+                <button onclick="startExercise('C Memory Management')">Start</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function filterExercises() {
+            const language = document.getElementById('language-filter').value;
+            const searchTerm = document.getElementById('search-bar').value.toLowerCase();
+            const exercises = document.querySelectorAll('.exercise');
+
+            exercises.forEach(exercise => {
+                const title = exercise.querySelector('.exercise-title').innerText.toLowerCase();
+                const exerciseLanguage = exercise.getAttribute('data-language');
+
+                if (
+                    (language === 'all' || exerciseLanguage === language) &&
+                    title.includes(searchTerm)
+                ) {
+                    exercise.style.display = '';
+                } else {
+                    exercise.style.display = 'none';
+                }
+            });
+        }
+
+        function startExercise(title) {
+            alert(`Starting ${title}...`);
+        }
+    </script>
+</body>
+
+</html>
